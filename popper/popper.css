@@ -1,0 +1,19 @@
+/* make sure the screen stays in place */
+html,
+body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overscroll-behavior: none;
+    -webkeit-overflow-scrolling: touch;
+    padding: 0;
+    margin: 0;
+    -webkit-user-select: none;
+    user-select: none;
+    user-zoom: fixed;
+}
+/* do not try to do anything with touch !!!! */
+* {
+    touch-action: none;
+}

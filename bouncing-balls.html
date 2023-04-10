@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Balls</title>
+    <style>
+       .sprite {
+        position: absolute;
+        width: 10vh;
+        height: 10vh;
+        background-color: rgba(23, 55, 214, 0.621);
+        border-radius: 50%;
+        transform: scale(1);
+        transition: transform 1s ease-out, background-color 1s linear;
+       }
+       .sprite.explosion {
+        transform: scale(8);
+        background-color: rgba(255, 0, 76, 0);
+       }
+       #score {
+        position: absolute;
+        top: 1vh;
+        left: 1vw;
+        font-size: 10vh;
+       }
+    </style>
+</head>
+<body>
+    <div id="score"></div>
+</body>
+<script>
+    let count = 10
+    let score = document.getElementById('score');
+    for (let i=0; i < count; i++) {
+        
+        let sprite = document.createElement('div');
+        sprite.classList.add('sprite');
+        sprite.addEventListener('click', () => {
+            sprite.classList.add('explosion');
+            sprite.style.pointerEvents = 'none';
+            count = count - 1;
+            score.innerHTML = count;
+        },{once: true});
+        sprite.addEventListener('transitionend', () => {
+            sprite.remove();
+        },{once: true});
+        document.body.appendChild(sprite);
+        // closure
+        let ypos = 0;
+        let xpos = 0;
+        let yspeed = Math.random()/10+0.2;
+        let xspeed = Math.random()/10+0.2;
+        setInterval(() => {
+            ypos = ypos + yspeed;
+            xpos = xpos + xspeed;
+            sprite.style.top = ypos + 'vh';
+            sprite.style.left = xpos + 'vw';
+            if ( ypos > 90 || ypos < 0) {
+                yspeed = yspeed * -1;
+            }
+            if ( xpos > 90 || xpos < 0) {
+                xspeed = xspeed * -1;
+            }
+        },20);
+    }
+    score.innerHTML = count;
+</script>
+</html>
